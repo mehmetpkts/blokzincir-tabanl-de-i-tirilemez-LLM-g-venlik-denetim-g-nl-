@@ -1,0 +1,29 @@
+{
+  "name": "llm-audit-log",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blockchain-based immutable LLM security audit log",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "verify:sepolia": "hardhat verify --network sepolia",
+    "precheck:sepolia": "node scripts/check-sepolia.js",
+    "start:backend": "node backend/logger-service.js",
+    "generate:logger": "node scripts/generate-logger-wallet.js",
+    "rotate:logger": "node scripts/rotate-logger-role.js",
+    "seed:demo": "node scripts/seed-demo-data.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
+    "hardhat": "^2.28.6"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1",
+    "dotenv": "^17.4.2",
+    "ethers": "^6.16.0",
+    "express": "^5.2.1"
+  }
+}

@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>LLM Audit Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #10223a;
+      --muted: #5b6f88;
+      --line: #dde4ef;
+      --accent: #0f766e;
+      --accent-soft: #d1faf5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 20% 20%, #ffffff 0, #f2f5fb 45%, #eaf0fb 100%);
+    }
+
+    header {
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, #f0fdf4 0%, #eef2ff 100%);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .sub {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 16px 24px;
+    }
+
+    .stats {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(16, 34, 58, 0.06);
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .ok {
+      background: #22c55e;
+    }
+
+    .off {
+      background: #ef4444;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #334155;
+    }
+
+    .pill {
+      font-size: 12px;
+      color: #065f46;
+      background: var(--accent-soft);
+      border: 1px solid #99f6e4;
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    .mono {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 13px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .btn {
+      border: 1px solid #99f6e4;
+      background: var(--accent-soft);
+      color: #065f46;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .link {
+      color: #0f766e;
+      text-decoration: none;
+      border-bottom: 1px dashed #0f766e;
+    }
+
+    .link:hover {
+      color: #115e59;
+      border-bottom-color: #115e59;
+    }
+
+    @media (max-width: 700px) {
+
+      th:nth-child(4),
+      td:nth-child(4),
+      th:nth-child(5),
+      td:nth-child(5) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>LLM Audit Canli Olay Paneli</h1>
+    <div class="sub">Blockchain tabanli degistirilemez denetim kayitlari</div>
+  </header>
+
+  <main>
+    <section class="stats">
+      <div class="card">
+        <div class="label">Servis Durumu</div>
+        <div
+          class="value"
+          id="serviceStatus"
+        ><span class="dot off"></span>Baglanmadi</div>
+      </div>
+      <div class="card">
+        <div class="label">Toplam Kayit</div>
+        <div
+          class="value"
+          id="recordCount"
+        >-</div>
+      </div>
+      <div class="card">
+        <div class="label">SSE Baglantisi</div>
+        <div
+          class="value"
+          id="sseStatus"
+        ><span class="dot off"></span>Kapali</div>
+      </div>
+      <div class="card">
+        <div class="label">Son Guncelleme</div>
+        <div
+          class="value small"
+          id="lastUpdate"
+        >-</div>
+      </div>
+    </section>
+
+    <section class="filters">
+      <div class="card">
+        <div class="label">Actor Filtre</div>
+        <input
+          id="actorFilter"
+          class="input"
+          type="text"
+          placeholder="0x... actor adresi"
+        />
+      </div>
+      <div class="card">
+        <div class="label">Logger Filtre</div>
+        <input
+          id="loggerFilter"
+          class="input"
+          type="text"
+          placeholder="0x... logger adresi"
+        />
+      </div>
+      <div class="card">
+        <div class="label">Baslangic Tarihi</div>
+        <input
+          id="startDateFilter"
+          class="input"
+          type="datetime-local"
+        />
+      </div>
+      <div class="card">
+        <div class="label">Bitis Tarihi</div>
+        <input
+          id="endDateFilter"
+          class="input"
+          type="datetime-local"
+        />
+      </div>
+      <div class="card">
+        <div class="label">Filtre Islemleri</div>
+        <button
+          id="clearFilters"
+          class="btn"
+          type="button"
+        >Filtreleri Temizle</button>
+        <button
+          id="exportCsv"
+          class="btn"
+          type="button"
+          style="margin-top:8px;"
+        >CSV Indir</button>
+        <div
+          class="small"
+          id="visibleCount"
+          style="margin-top:10px;"
+        >Gorunen kayit: 0</div>
+      </div>
+    </section>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Actor</th>
+          <th>Logger</th>
+          <th>Prompt Hash</th>
+          <th>Tx Hash</th>
+          <th>Zaman</th>
+        </tr>
+      </thead>
+      <tbody id="eventsBody"></tbody>
+    </table>
+  </main>
+
+  <script>
+    const eventsBody = document.getElementById("eventsBody");
+    const serviceStatus = document.getElementById("serviceStatus");
+    const sseStatus = document.getElementById("sseStatus");
+    const recordCount = document.getElementById("recordCount");
+    const lastUpdate = document.getElementById("lastUpdate");
+    const actorFilter = document.getElementById("actorFilter");
+    const loggerFilter = document.getElementById("loggerFilter");
+    const startDateFilter = document.getElementById("startDateFilter");
+    const endDateFilter = document.getElementById("endDateFilter");
+    const clearFilters = document.getElementById("clearFilters");
+    const exportCsv = document.getElementById("exportCsv");
+    const visibleCount = document.getElementById("visibleCount");
+    const txExplorerBase = "https://sepolia.etherscan.io/tx/";
+
+    let allEvents = [];
+
+    function short(v) {
+      if (!v) return "-";
+      return v.length > 12 ? `${v.slice(0, 8)}...${v.slice(-6)}` : v;
+    }
+
+    function renderRows(items) {
+      eventsBody.innerHTML = items
+        .map(
+          (e) => `
+            <tr>
+              <td><span class="pill">#${e.recordId}</span></td>
+              <td class="mono">${short(e.actor)}</td>
+              <td class="mono">${short(e.logger)}</td>
+              <td class="mono">${short(e.promptHash)}</td>
+              <td class="mono">${e.txHash ? `<a class="link" href="${txExplorerBase}${e.txHash}" target="_blank" rel="noopener noreferrer">${short(e.txHash)}</a>` : "-"}</td>
+              <td>${new Date(Number(e.timestamp) * 1000).toLocaleString()}</td>
+            </tr>
+          `
+        )
+        .join("");
+
+      visibleCount.textContent = `Gorunen kayit: ${items.length}`;
+    }
+
+    function applyFilters(items) {
+      const actorQ = actorFilter.value.trim().toLowerCase();
+      const loggerQ = loggerFilter.value.trim().toLowerCase();
+      const startTs = startDateFilter.value ? new Date(startDateFilter.value).getTime() : null;
+      const endTs = endDateFilter.value ? new Date(endDateFilter.value).getTime() : null;
+
+      return items.filter((e) => {
+        const eventTs = Number(e.timestamp) * 1000;
+        const actorOk = !actorQ || String(e.actor || "").toLowerCase().includes(actorQ);
+        const loggerOk = !loggerQ || String(e.logger || "").toLowerCase().includes(loggerQ);
+        const startOk = startTs === null || eventTs >= startTs;
+        const endOk = endTs === null || eventTs <= endTs;
+        return actorOk && loggerOk && startOk && endOk;
+      });
+    }
+
+    function renderFiltered() {
+      renderRows(applyFilters(allEvents));
+    }
+
+    function csvEscape(value) {
+      const str = String(value ?? "");
+      const escaped = str.replace(/"/g, '""');
+      return `"${escaped}"`;
+    }
+
+    function exportFilteredCsv() {
+      const filtered = applyFilters(allEvents);
+      const header = ["recordId", "actor", "logger", "promptHash", "responseHash", "reasoningHash", "timestamp", "isoTime", "txHash", "blockNumber"];
+      const rows = filtered.map((e) => [
+        e.recordId,
+        e.actor,
+        e.logger,
+        e.promptHash,
+        e.responseHash,
+        e.reasoningHash,
+        e.timestamp,
+        new Date(Number(e.timestamp) * 1000).toISOString(),
+        e.txHash || "",
+        e.blockNumber || ""
+      ]);
+
+      const csv = [header, ...rows]
+        .map((line) => line.map(csvEscape).join(","))
+        .join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+      a.href = url;
+      a.download = `llm-audit-events-${stamp}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    async function loadHealth() {
+      const res = await fetch("/health");
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || "health failed");
+
+      serviceStatus.innerHTML = '<span class="dot ok"></span>Calisiyor';
+      recordCount.textContent = data.recordCount;
+    }
+
+    async function loadRecent() {
+      const res = await fetch("/events/recent");
+      const data = await res.json();
+      if (!data.ok) throw new Error("events load failed");
+      allEvents = data.items || [];
+      renderFiltered();
+    }
+
+    function connectSse() {
+      const es = new EventSource("/events/stream");
+
+      es.onopen = () => {
+        sseStatus.innerHTML = '<span class="dot ok"></span>Acik';
+      };
+
+      es.onmessage = (msg) => {
+        const payload = JSON.parse(msg.data);
+        if (payload.type === "connected") {
+          return;
+        }
+
+        allEvents.unshift(payload);
+        if (allEvents.length > 100) {
+          allEvents.pop();
+        }
+
+        renderFiltered();
+
+        recordCount.textContent = String(Number(recordCount.textContent || "0") + 1);
+        lastUpdate.textContent = new Date().toLocaleString();
+      };
+
+      es.onerror = () => {
+        sseStatus.innerHTML = '<span class="dot off"></span>Baglanti kesildi';
+      };
+    }
+
+    actorFilter.addEventListener("input", renderFiltered);
+    loggerFilter.addEventListener("input", renderFiltered);
+    startDateFilter.addEventListener("input", renderFiltered);
+    endDateFilter.addEventListener("input", renderFiltered);
+    exportCsv.addEventListener("click", exportFilteredCsv);
+    clearFilters.addEventListener("click", () => {
+      actorFilter.value = "";
+      loggerFilter.value = "";
+      startDateFilter.value = "";
+      endDateFilter.value = "";
+      renderFiltered();
+    });
+
+    (async () => {
+      try {
+        await loadHealth();
+        await loadRecent();
+        connectSse();
+        lastUpdate.textContent = new Date().toLocaleString();
+      } catch (err) {
+        serviceStatus.innerHTML = '<span class="dot off"></span>Hata';
+        lastUpdate.textContent = err.message;
+      }
+    })();
+  </script>
+</body>
+
+</html>
