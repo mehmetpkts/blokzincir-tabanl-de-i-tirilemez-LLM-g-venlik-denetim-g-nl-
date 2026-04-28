@@ -14,7 +14,8 @@
     "start:backend": "node backend/logger-service.js",
     "generate:logger": "node scripts/generate-logger-wallet.js",
     "rotate:logger": "node scripts/rotate-logger-role.js",
-    "seed:demo": "node scripts/seed-demo-data.js"
+    "seed:demo": "node scripts/seed-demo-data.js",
+    "chat:lmstudio": "node scripts/chat-lmstudio-audit.js"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.1.2",
