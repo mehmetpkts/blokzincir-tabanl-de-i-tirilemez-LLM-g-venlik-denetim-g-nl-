@@ -3,20 +3,23 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-  <title>LLM Audit Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Audit Demo Paneli</title>
   <style>
     :root {
-      --bg: #f6f7fb;
-      --card: #ffffff;
-      --ink: #10223a;
-      --muted: #5b6f88;
-      --line: #dde4ef;
-      --accent: #0f766e;
-      --accent-soft: #d1faf5;
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --ink: #162033;
+      --muted: #637187;
+      --line: #dce3ee;
+      --brand: #0f766e;
+      --brand-dark: #115e59;
+      --brand-soft: #d9f7f2;
+      --warn-soft: #fff7dc;
+      --warn: #9a6700;
+      --danger: #c2410c;
+      --ok: #16a34a;
+      --shadow: 0 10px 28px rgba(22, 32, 51, 0.08);
     }
 
     * {
@@ -27,79 +30,247 @@
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       color: var(--ink);
-      background: radial-gradient(circle at 20% 20%, #ffffff 0, #f2f5fb 45%, #eaf0fb 100%);
+      background: var(--bg);
     }
 
     header {
-      padding: 24px;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(90deg, #f0fdf4 0%, #eef2ff 100%);
+      background: #102033;
+      color: #ffffff;
+      padding: 22px 24px;
+      border-bottom: 4px solid var(--brand);
     }
 
     h1 {
       margin: 0;
       font-size: 26px;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      letter-spacing: 0;
     }
 
     .sub {
-      margin-top: 8px;
-      color: var(--muted);
+      margin-top: 7px;
+      color: #d8e2f0;
+      font-size: 14px;
     }
 
     main {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 0 16px 24px;
+      width: min(1220px, calc(100% - 28px));
+      margin: 18px auto 28px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
     }
 
     .stats {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      margin-bottom: 16px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .demo-grid {
+      grid-template-columns: minmax(320px, 0.9fr) minmax(360px, 1.1fr);
+      align-items: start;
+      margin-top: 14px;
     }
 
     .card {
-      background: var(--card);
+      background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 8px 24px rgba(16, 34, 58, 0.06);
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: var(--shadow);
     }
 
     .label {
       color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 8px;
+      font-size: 12px;
+      margin-bottom: 7px;
     }
 
     .value {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
+      min-height: 22px;
+      overflow-wrap: anywhere;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .mono {
+      font-family: Consolas, "Courier New", monospace;
     }
 
     .dot {
       display: inline-block;
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      margin-right: 8px;
+      margin-right: 7px;
+      vertical-align: 1px;
     }
 
     .ok {
-      background: #22c55e;
+      background: var(--ok);
     }
 
     .off {
       background: #ef4444;
     }
 
+    .warn-dot {
+      background: #f59e0b;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px;
+      font: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 11px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 40px;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-dark);
+    }
+
+    .btn-secondary {
+      background: #eef2f7;
+      color: #26364f;
+      border-color: var(--line);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fbfcfe;
+      min-height: 74px;
+    }
+
+    .step.active {
+      border-color: #99f6e4;
+      background: var(--brand-soft);
+    }
+
+    .step.done {
+      border-color: #bbf7d0;
+      background: #effdf4;
+    }
+
+    .step.error {
+      border-color: #fed7aa;
+      background: #fff7ed;
+    }
+
+    .step strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .result {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      background: #fbfcfe;
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 90px;
+      overflow-wrap: anywhere;
+    }
+
+    .hash-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .hash-row {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px;
+      background: #ffffff;
+    }
+
+    .hash-row .small {
+      margin-bottom: 4px;
+    }
+
+    .filters {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-top: 14px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      background: var(--card);
+      margin-top: 12px;
+      background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 8px;
       overflow: hidden;
     }
 
@@ -109,72 +280,61 @@
       padding: 10px;
       border-bottom: 1px solid var(--line);
       font-size: 13px;
+      vertical-align: top;
     }
 
     th {
-      background: #f8fafc;
-      color: #334155;
+      background: #eef2f7;
+      color: #31425c;
     }
 
     .pill {
+      display: inline-block;
       font-size: 12px;
       color: #065f46;
-      background: var(--accent-soft);
+      background: var(--brand-soft);
       border: 1px solid #99f6e4;
       border-radius: 999px;
       padding: 2px 8px;
-    }
-
-    .mono {
-      font-family: Consolas, "Courier New", monospace;
-    }
-
-    .small {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .input {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 13px;
-      color: var(--ink);
-      background: #fff;
-    }
-
-    .btn {
-      border: 1px solid #99f6e4;
-      background: var(--accent-soft);
-      color: #065f46;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 10px;
-      cursor: pointer;
+      white-space: nowrap;
     }
 
     .link {
-      color: #0f766e;
+      color: var(--brand);
       text-decoration: none;
-      border-bottom: 1px dashed #0f766e;
+      border-bottom: 1px dashed var(--brand);
     }
 
     .link:hover {
-      color: #115e59;
-      border-bottom-color: #115e59;
+      color: var(--brand-dark);
+      border-bottom-color: var(--brand-dark);
     }
 
-    @media (max-width: 700px) {
+    .notice {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #fde68a;
+      background: var(--warn-soft);
+      color: var(--warn);
+      font-size: 13px;
+      display: none;
+    }
 
+    @media (max-width: 940px) {
+      .stats,
+      .demo-grid,
+      .result,
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
       th:nth-child(4),
       td:nth-child(4),
       th:nth-child(5),
@@ -187,119 +347,160 @@
 
 <body>
   <header>
-    <h1>LLM Audit Canli Olay Paneli</h1>
-    <div class="sub">Blockchain tabanli degistirilemez denetim kayitlari</div>
+    <h1>LLM Audit Demo Paneli</h1>
+    <div class="sub">Local LLM mesajini hashleyip Sepolia uzerinde degistirilemez denetim kaydina donusturur</div>
   </header>
 
   <main>
-    <section class="stats">
+    <section class="grid stats">
       <div class="card">
-        <div class="label">Servis Durumu</div>
-        <div
-          class="value"
-          id="serviceStatus"
-        ><span class="dot off"></span>Baglanmadi</div>
+        <div class="label">Backend Servisi</div>
+        <div class="value" id="serviceStatus"><span class="dot off"></span>Baglanmadi</div>
       </div>
       <div class="card">
-        <div class="label">Toplam Kayit</div>
-        <div
-          class="value"
-          id="recordCount"
-        >-</div>
+        <div class="label">LM Studio</div>
+        <div class="value" id="lmStatus"><span class="dot off"></span>Kontrol ediliyor</div>
+        <div class="small mono" id="lmModel">-</div>
       </div>
       <div class="card">
-        <div class="label">SSE Baglantisi</div>
-        <div
-          class="value"
-          id="sseStatus"
-        ><span class="dot off"></span>Kapali</div>
+        <div class="label">Toplam Blockchain Kaydi</div>
+        <div class="value" id="recordCount">-</div>
       </div>
       <div class="card">
-        <div class="label">Son Guncelleme</div>
-        <div
-          class="value small"
-          id="lastUpdate"
-        >-</div>
+        <div class="label">Canli Event Akisi</div>
+        <div class="value" id="sseStatus"><span class="dot off"></span>Kapali</div>
       </div>
     </section>
 
-    <section class="filters">
+    <section class="grid demo-grid">
       <div class="card">
-        <div class="label">Actor Filtre</div>
-        <input
-          id="actorFilter"
-          class="input"
-          type="text"
-          placeholder="0x... actor adresi"
-        />
+        <h2>Canli Demo</h2>
+        <div class="label">Actor Adresi</div>
+        <input id="actorInput" class="mono" type="text" placeholder="Bos birakilirsa backend logger adresi kullanilir" />
+
+        <div class="label" style="margin-top:12px;">LLM Mesaji</div>
+        <textarea id="promptInput">Siber guvenlikte prompt injection nedir? Kisa ve sade anlat.</textarea>
+
+        <div class="actions">
+          <button id="runDemo" class="btn-primary" type="button">Demo Kaydi Olustur</button>
+          <button id="refreshData" class="btn-secondary" type="button">Kayitlari Yenile</button>
+        </div>
+        <div class="notice" id="demoNotice"></div>
+
+        <div class="flow">
+          <div class="step" id="stepPrompt">
+            <strong>1. Prompt</strong>
+            Mesaj arayuzden alinir.
+          </div>
+          <div class="step" id="stepLm">
+            <strong>2. Local LLM</strong>
+            LM Studio cevap uretir.
+          </div>
+          <div class="step" id="stepHash">
+            <strong>3. Hash</strong>
+            Metinler keccak256 olur.
+          </div>
+          <div class="step" id="stepChain">
+            <strong>4. Blockchain</strong>
+            Hashler Sepolia'ya yazilir.
+          </div>
+          <div class="step" id="stepEvent">
+            <strong>5. Kanit</strong>
+            Tx ve event panelde gorunur.
+          </div>
+        </div>
       </div>
+
       <div class="card">
-        <div class="label">Logger Filtre</div>
-        <input
-          id="loggerFilter"
-          class="input"
-          type="text"
-          placeholder="0x... logger adresi"
-        />
-      </div>
-      <div class="card">
-        <div class="label">Baslangic Tarihi</div>
-        <input
-          id="startDateFilter"
-          class="input"
-          type="datetime-local"
-        />
-      </div>
-      <div class="card">
-        <div class="label">Bitis Tarihi</div>
-        <input
-          id="endDateFilter"
-          class="input"
-          type="datetime-local"
-        />
-      </div>
-      <div class="card">
-        <div class="label">Filtre Islemleri</div>
-        <button
-          id="clearFilters"
-          class="btn"
-          type="button"
-        >Filtreleri Temizle</button>
-        <button
-          id="exportCsv"
-          class="btn"
-          type="button"
-          style="margin-top:8px;"
-        >CSV Indir</button>
-        <div
-          class="small"
-          id="visibleCount"
-          style="margin-top:10px;"
-        >Gorunen kayit: 0</div>
+        <h2>Son Demo Sonucu</h2>
+        <div class="result">
+          <div class="box">
+            <h3>Model Cevabi</h3>
+            <div id="modelResponse" class="small">Henüz demo calistirilmadi.</div>
+          </div>
+          <div class="box">
+            <h3>Blockchain Kaniti</h3>
+            <div id="txResult" class="small">Tx hash burada gorunecek.</div>
+          </div>
+        </div>
+
+        <div class="hash-list" style="margin-top:12px;">
+          <div class="hash-row">
+            <div class="small">Prompt Hash</div>
+            <div id="promptHash" class="mono small">-</div>
+          </div>
+          <div class="hash-row">
+            <div class="small">Response Hash</div>
+            <div id="responseHash" class="mono small">-</div>
+          </div>
+          <div class="hash-row">
+            <div class="small">Reasoning/Ozet Hash</div>
+            <div id="reasoningHash" class="mono small">-</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Actor</th>
-          <th>Logger</th>
-          <th>Prompt Hash</th>
-          <th>Tx Hash</th>
-          <th>Zaman</th>
-        </tr>
-      </thead>
-      <tbody id="eventsBody"></tbody>
-    </table>
+    <section class="card" style="margin-top:14px;">
+      <h2>Canli Audit Kayitlari</h2>
+      <section class="grid filters">
+        <div>
+          <div class="label">Actor Filtre</div>
+          <input id="actorFilter" type="text" placeholder="0x... actor adresi" />
+        </div>
+        <div>
+          <div class="label">Logger Filtre</div>
+          <input id="loggerFilter" type="text" placeholder="0x... logger adresi" />
+        </div>
+        <div>
+          <div class="label">Baslangic Tarihi</div>
+          <input id="startDateFilter" type="datetime-local" />
+        </div>
+        <div>
+          <div class="label">Bitis Tarihi</div>
+          <input id="endDateFilter" type="datetime-local" />
+        </div>
+        <div>
+          <div class="label">Islemler</div>
+          <button id="clearFilters" class="btn-secondary" type="button">Temizle</button>
+          <button id="exportCsv" class="btn-secondary" type="button">CSV</button>
+          <div class="small" id="visibleCount" style="margin-top:8px;">Gorunen kayit: 0</div>
+        </div>
+      </section>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Actor</th>
+            <th>Logger</th>
+            <th>Prompt Hash</th>
+            <th>Tx Hash</th>
+            <th>Zaman</th>
+          </tr>
+        </thead>
+        <tbody id="eventsBody"></tbody>
+      </table>
+    </section>
   </main>
 
   <script>
     const eventsBody = document.getElementById("eventsBody");
     const serviceStatus = document.getElementById("serviceStatus");
+    const lmStatus = document.getElementById("lmStatus");
+    const lmModel = document.getElementById("lmModel");
     const sseStatus = document.getElementById("sseStatus");
     const recordCount = document.getElementById("recordCount");
-    const lastUpdate = document.getElementById("lastUpdate");
+    const actorInput = document.getElementById("actorInput");
+    const promptInput = document.getElementById("promptInput");
+    const runDemo = document.getElementById("runDemo");
+    const refreshData = document.getElementById("refreshData");
+    const demoNotice = document.getElementById("demoNotice");
+    const modelResponse = document.getElementById("modelResponse");
+    const txResult = document.getElementById("txResult");
+    const promptHash = document.getElementById("promptHash");
+    const responseHash = document.getElementById("responseHash");
+    const reasoningHash = document.getElementById("reasoningHash");
     const actorFilter = document.getElementById("actorFilter");
     const loggerFilter = document.getElementById("loggerFilter");
     const startDateFilter = document.getElementById("startDateFilter");
@@ -316,20 +517,39 @@
       return v.length > 12 ? `${v.slice(0, 8)}...${v.slice(-6)}` : v;
     }
 
+    function setStep(id, state) {
+      const el = document.getElementById(id);
+      el.classList.remove("active", "done", "error");
+      if (state) el.classList.add(state);
+    }
+
+    function resetSteps() {
+      ["stepPrompt", "stepLm", "stepHash", "stepChain", "stepEvent"].forEach((id) => setStep(id, ""));
+    }
+
+    function showNotice(text, isError = false) {
+      demoNotice.style.display = "block";
+      demoNotice.style.color = isError ? "var(--danger)" : "var(--warn)";
+      demoNotice.textContent = text;
+    }
+
+    function hideNotice() {
+      demoNotice.style.display = "none";
+      demoNotice.textContent = "";
+    }
+
     function renderRows(items) {
       eventsBody.innerHTML = items
-        .map(
-          (e) => `
-            <tr>
-              <td><span class="pill">#${e.recordId}</span></td>
-              <td class="mono">${short(e.actor)}</td>
-              <td class="mono">${short(e.logger)}</td>
-              <td class="mono">${short(e.promptHash)}</td>
-              <td class="mono">${e.txHash ? `<a class="link" href="${txExplorerBase}${e.txHash}" target="_blank" rel="noopener noreferrer">${short(e.txHash)}</a>` : "-"}</td>
-              <td>${new Date(Number(e.timestamp) * 1000).toLocaleString()}</td>
-            </tr>
-          `
-        )
+        .map((e) => `
+          <tr>
+            <td><span class="pill">#${e.recordId}</span></td>
+            <td class="mono">${short(e.actor)}</td>
+            <td class="mono">${short(e.logger)}</td>
+            <td class="mono">${short(e.promptHash)}</td>
+            <td class="mono">${e.txHash ? `<a class="link" href="${txExplorerBase}${e.txHash}" target="_blank" rel="noopener noreferrer">${short(e.txHash)}</a>` : "-"}</td>
+            <td>${new Date(Number(e.timestamp) * 1000).toLocaleString()}</td>
+          </tr>
+        `)
         .join("");
 
       visibleCount.textContent = `Gorunen kayit: ${items.length}`;
@@ -355,57 +575,35 @@
       renderRows(applyFilters(allEvents));
     }
 
-    function csvEscape(value) {
-      const str = String(value ?? "");
-      const escaped = str.replace(/"/g, '""');
-      return `"${escaped}"`;
-    }
-
-    function exportFilteredCsv() {
-      const filtered = applyFilters(allEvents);
-      const header = ["recordId", "actor", "logger", "promptHash", "responseHash", "reasoningHash", "timestamp", "isoTime", "txHash", "blockNumber"];
-      const rows = filtered.map((e) => [
-        e.recordId,
-        e.actor,
-        e.logger,
-        e.promptHash,
-        e.responseHash,
-        e.reasoningHash,
-        e.timestamp,
-        new Date(Number(e.timestamp) * 1000).toISOString(),
-        e.txHash || "",
-        e.blockNumber || ""
-      ]);
-
-      const csv = [header, ...rows]
-        .map((line) => line.map(csvEscape).join(","))
-        .join("\n");
-
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-      a.href = url;
-      a.download = `llm-audit-events-${stamp}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+    async function readJson(url, options) {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      if (!response.ok || data.ok === false) {
+        throw new Error(data.error || `${url} failed`);
+      }
+      return data;
     }
 
     async function loadHealth() {
-      const res = await fetch("/health");
-      const data = await res.json();
-      if (!data.ok) throw new Error(data.error || "health failed");
-
+      const data = await readJson("/health");
       serviceStatus.innerHTML = '<span class="dot ok"></span>Calisiyor';
       recordCount.textContent = data.recordCount;
+      actorInput.placeholder = data.wallet;
+    }
+
+    async function loadLmStatus() {
+      try {
+        const data = await readJson("/lmstudio/status");
+        lmStatus.innerHTML = '<span class="dot ok"></span>Hazir';
+        lmModel.textContent = data.model;
+      } catch (error) {
+        lmStatus.innerHTML = '<span class="dot warn-dot"></span>Bekliyor';
+        lmModel.textContent = "LM Studio server/model kontrol edilmeli";
+      }
     }
 
     async function loadRecent() {
-      const res = await fetch("/events/recent");
-      const data = await res.json();
-      if (!data.ok) throw new Error("events load failed");
+      const data = await readJson("/events/recent");
       allEvents = data.items || [];
       renderFiltered();
     }
@@ -419,26 +617,98 @@
 
       es.onmessage = (msg) => {
         const payload = JSON.parse(msg.data);
-        if (payload.type === "connected") {
-          return;
-        }
+        if (payload.type === "connected") return;
 
         allEvents.unshift(payload);
-        if (allEvents.length > 100) {
-          allEvents.pop();
-        }
-
+        if (allEvents.length > 100) allEvents.pop();
         renderFiltered();
-
         recordCount.textContent = String(Number(recordCount.textContent || "0") + 1);
-        lastUpdate.textContent = new Date().toLocaleString();
       };
 
       es.onerror = () => {
-        sseStatus.innerHTML = '<span class="dot off"></span>Baglanti kesildi';
+        sseStatus.innerHTML = '<span class="dot off"></span>Kesildi';
       };
     }
 
+    async function runAuditDemo() {
+      hideNotice();
+      resetSteps();
+      runDemo.disabled = true;
+      modelResponse.textContent = "Model cevabi bekleniyor...";
+      txResult.textContent = "Blockchain islemi bekleniyor...";
+      promptHash.textContent = "-";
+      responseHash.textContent = "-";
+      reasoningHash.textContent = "-";
+
+      try {
+        setStep("stepPrompt", "done");
+        setStep("stepLm", "active");
+
+        const body = {
+          prompt: promptInput.value.trim(),
+          actor: actorInput.value.trim()
+        };
+
+        if (!body.prompt) {
+          throw new Error("Demo icin once bir LLM mesaji yaz.");
+        }
+
+        const data = await readJson("/lmstudio-audit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        setStep("stepLm", "done");
+        setStep("stepHash", "done");
+        setStep("stepChain", "done");
+        setStep("stepEvent", "done");
+
+        modelResponse.textContent = data.response;
+        txResult.innerHTML = `<a class="link mono" href="${txExplorerBase}${data.txHash}" target="_blank" rel="noopener noreferrer">${data.txHash}</a>`;
+        promptHash.textContent = data.promptHash;
+        responseHash.textContent = data.responseHash;
+        reasoningHash.textContent = data.reasoningHash;
+        showNotice("Kayit basarili: prompt ve cevap hashleri Sepolia uzerine yazildi.");
+        await loadHealth();
+        await loadRecent();
+      } catch (error) {
+        ["stepLm", "stepHash", "stepChain", "stepEvent"].forEach((id) => setStep(id, "error"));
+        modelResponse.textContent = "-";
+        txResult.textContent = "-";
+        showNotice(error.message, true);
+      } finally {
+        runDemo.disabled = false;
+      }
+    }
+
+    function csvEscape(value) {
+      const str = String(value ?? "");
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+
+    function exportFilteredCsv() {
+      const filtered = applyFilters(allEvents);
+      const header = ["recordId", "actor", "logger", "promptHash", "responseHash", "reasoningHash", "timestamp", "txHash", "blockNumber"];
+      const rows = filtered.map((e) => header.map((key) => e[key] || ""));
+      const csv = [header, ...rows].map((line) => line.map(csvEscape).join(",")).join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `llm-audit-events-${new Date().toISOString().replace(/[:.]/g, "-")}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    runDemo.addEventListener("click", runAuditDemo);
+    refreshData.addEventListener("click", async () => {
+      await loadHealth();
+      await loadLmStatus();
+      await loadRecent();
+    });
     actorFilter.addEventListener("input", renderFiltered);
     loggerFilter.addEventListener("input", renderFiltered);
     startDateFilter.addEventListener("input", renderFiltered);
@@ -455,12 +725,12 @@
     (async () => {
       try {
         await loadHealth();
+        await loadLmStatus();
         await loadRecent();
         connectSse();
-        lastUpdate.textContent = new Date().toLocaleString();
-      } catch (err) {
+      } catch (error) {
         serviceStatus.innerHTML = '<span class="dot off"></span>Hata';
-        lastUpdate.textContent = err.message;
+        showNotice(error.message, true);
       }
     })();
   </script>

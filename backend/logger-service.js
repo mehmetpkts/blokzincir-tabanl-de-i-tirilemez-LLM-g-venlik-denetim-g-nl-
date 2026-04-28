@@ -12,6 +12,9 @@ const RPC_URL = process.env.SEPOLIA_RPC_URL || process.env.LOCALHOST_RPC_URL;
 const CONTRACT_ADDRESS = process.env.AUDIT_CONTRACT_ADDRESS;
 const BACKEND_PRIVATE_KEY = process.env.BACKEND_PRIVATE_KEY;
 const BACKEND_API_KEY = process.env.BACKEND_API_KEY;
+const LMSTUDIO_BASE_URL = process.env.LMSTUDIO_BASE_URL || "http://127.0.0.1:1234/v1";
+const LMSTUDIO_MODEL = process.env.LMSTUDIO_MODEL || "";
+const AUDIT_ACTOR_ADDRESS = process.env.AUDIT_ACTOR_ADDRESS;
 const EVENT_BUFFER_SIZE = 100;
 const sseClients = new Set();
 const recentEvents = [];
@@ -147,6 +150,46 @@ function hashText(value) {
   return ethers.keccak256(ethers.toUtf8Bytes(value));
 }
 
+async function requestJson(url, options = {}) {
+  const response = await fetch(url, options);
+  const text = await response.text();
+  let body;
+
+  try {
+    body = text ? JSON.parse(text) : {};
+  } catch {
+    body = { raw: text };
+  }
+
+  if (!response.ok) {
+    throw new Error(`${url} failed with ${response.status}: ${JSON.stringify(body)}`);
+  }
+
+  return body;
+}
+
+async function getLmStudioModelName() {
+  if (LMSTUDIO_MODEL) {
+    return LMSTUDIO_MODEL;
+  }
+
+  const models = await requestJson(`${LMSTUDIO_BASE_URL}/models`);
+  const firstModel = models.data && models.data[0] && models.data[0].id;
+  if (!firstModel) {
+    throw new Error("LM Studio model list is empty. Load a model in LM Studio first.");
+  }
+
+  return firstModel;
+}
+
+function getDefaultActor(wallet) {
+  if (AUDIT_ACTOR_ADDRESS && ethers.isAddress(AUDIT_ACTOR_ADDRESS)) {
+    return AUDIT_ACTOR_ADDRESS;
+  }
+
+  return wallet.address;
+}
+
 function requireApiKey(req, res, next) {
   if (!BACKEND_API_KEY) {
     return next();
@@ -182,9 +225,24 @@ app.get("/health", async (req, res) => {
   try {
     const { wallet } = buildClient();
     const recordCount = readContract ? await readContract.getRecordCount() : 0n;
-    res.json({ ok: true, wallet: wallet.address, contract: CONTRACT_ADDRESS, recordCount: recordCount.toString() });
+    res.json({
+      ok: true,
+      wallet: wallet.address,
+      contract: CONTRACT_ADDRESS,
+      recordCount: recordCount.toString(),
+      lmStudioBaseUrl: LMSTUDIO_BASE_URL
+    });
   } catch (error) {
     res.status(500).json({ ok: false, error: error.message });
+  }
+});
+
+app.get("/lmstudio/status", async (req, res) => {
+  try {
+    const model = await getLmStudioModelName();
+    res.json({ ok: true, baseUrl: LMSTUDIO_BASE_URL, model });
+  } catch (error) {
+    res.status(500).json({ ok: false, baseUrl: LMSTUDIO_BASE_URL, error: error.message });
   }
 });
 
@@ -286,6 +344,58 @@ app.post("/audit-log/batch", requireApiKey, async (req, res) => {
     const receipt = await tx.wait();
 
     res.json({ ok: true, txHash: receipt.hash, count: records.length });
+  } catch (error) {
+    res.status(500).json({ ok: false, error: error.message });
+  }
+});
+
+app.post("/lmstudio-audit", requireApiKey, async (req, res) => {
+  try {
+    const { prompt, actor } = req.body;
+    if (!prompt || typeof prompt !== "string") {
+      return res.status(400).json({ error: "prompt is required" });
+    }
+
+    const { contract, wallet } = buildClient();
+    const auditActor = actor && ethers.isAddress(actor) ? actor : getDefaultActor(wallet);
+    const model = await getLmStudioModelName();
+
+    const completion = await requestJson(`${LMSTUDIO_BASE_URL}/chat/completions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model,
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.2
+      })
+    });
+
+    const responseText = completion.choices?.[0]?.message?.content || "";
+    if (!responseText) {
+      throw new Error("LM Studio returned an empty response.");
+    }
+
+    const reasoning =
+      completion.choices?.[0]?.message?.reasoning_content ||
+      `Local LLM audit summary. model=${model}`;
+    const promptHash = hashText(prompt);
+    const responseHash = hashText(responseText);
+    const reasoningHash = hashText(reasoning);
+    const tx = await contract.addAuditRecord(auditActor, promptHash, responseHash, reasoningHash);
+    const receipt = await tx.wait();
+
+    res.json({
+      ok: true,
+      model,
+      actor: auditActor,
+      prompt,
+      response: responseText,
+      reasoning,
+      txHash: receipt.hash,
+      promptHash,
+      responseHash,
+      reasoningHash
+    });
   } catch (error) {
     res.status(500).json({ ok: false, error: error.message });
   }
