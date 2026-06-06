@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <title>detayli-teknik-rapor</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm;
+
+      @bottom-center {
+        color: #64748b;
+        content: "Sayfa " counter(page);
+        font-family: "Segoe UI", "DejaVu Sans", Arial, sans-serif;
+        font-size: 9pt;
+      }
+    }
+
+    body {
+      color: #172033;
+      font-family: "Segoe UI", "DejaVu Sans", Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      margin: 0;
+      background: #ffffff;
+    }
+
+    .cover-page {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 248mm;
+      text-align: center;
+    }
+
+    .cover-page h1 {
+      border-bottom: 0;
+      font-size: 24pt;
+      letter-spacing: 0.2px;
+      margin: 0 0 8mm;
+      padding: 0;
+      text-transform: uppercase;
+    }
+
+    .cover-page h2 {
+      border-bottom: 0;
+      font-size: 17pt;
+      margin: 0 0 3mm;
+      padding: 0;
+    }
+
+    .cover-page h3 {
+      color: #0f766e;
+      font-size: 15pt;
+      margin: 9mm 0 8mm;
+    }
+
+    .cover-page p {
+      font-size: 11.5pt;
+      margin: 1.8mm 0;
+      max-width: 150mm;
+    }
+
+    .cover-page ul {
+      list-style: none;
+      margin: 1mm 0 4mm;
+      padding: 0;
+    }
+
+    .cover-page li {
+      font-size: 11.5pt;
+      margin: 1.2mm 0;
+    }
+
+    .page-break {
+      break-after: page;
+      page-break-after: always;
+    }
+
+    h1, h2, h3, h4 {
+      color: #102033;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+
+    h1 {
+      border-bottom: 3px solid #0f766e;
+      font-size: 24pt;
+      margin: 0 0 10mm;
+      padding-bottom: 5mm;
+    }
+
+    h2 {
+      border-bottom: 1px solid #d8e0eb;
+      font-size: 16pt;
+      margin: 11mm 0 4mm;
+      padding-bottom: 2mm;
+    }
+
+    h3 {
+      font-size: 13pt;
+      margin: 7mm 0 2mm;
+    }
+
+    p {
+      margin: 0 0 3.5mm;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 4mm 6mm;
+      padding-left: 5mm;
+    }
+
+    li {
+      margin: 1.2mm 0;
+      text-align: left;
+    }
+
+    code {
+      background: #eef4f7;
+      border-radius: 3px;
+      color: #0f4c5c;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 9.2pt;
+      padding: 1px 4px;
+    }
+
+    pre {
+      background: #0f172a;
+      border-radius: 7px;
+      color: #e5edf6;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.4pt;
+      line-height: 1.45;
+      margin: 4mm 0;
+      overflow-wrap: anywhere;
+      padding: 4mm;
+      page-break-inside: avoid;
+      white-space: pre-wrap;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 4mm 0;
+      page-break-inside: avoid;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #d8e0eb;
+      padding: 2mm;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef4f7;
+      color: #102033;
+      font-weight: 700;
+    }
+
+    blockquote {
+      border-left: 4px solid #0f766e;
+      color: #334155;
+      margin: 4mm 0;
+      padding: 1mm 0 1mm 4mm;
+    }
+
+    blockquote p,
+    th,
+    td,
+    figcaption,
+    .cover-page p {
+      text-align: left;
+    }
+
+    a {
+      color: #0f766e;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    figure {
+      margin: 4mm 0 5mm;
+      page-break-inside: avoid;
+    }
+
+    img {
+      display: block;
+      height: auto;
+      margin: 0 auto 2mm;
+      max-width: 100%;
+    }
+
+    figcaption {
+      color: #334155;
+      font-size: 9.5pt;
+      line-height: 1.35;
+      margin: 0 auto;
+      max-width: 95%;
+      text-align: center;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #d8e0eb;
+      margin: 6mm 0;
+    }
+  </style>
+</head>
+<body>
+<section class="cover-page"><h1>Burdur Mehmet Akif Ersoy Üniversitesi</h1>
+<h2>Mühendislik-Mimarlık Fakültesi</h2>
+<h2>Bilgisayar Mühendisliği Bölümü</h2>
+<h3>Bilgi Güvenliğine Giriş Dersi Final Proje Raporu</h3>
+<p><strong>Proje Başlığı:</strong> Blokzincir Tabanlı Değiştirilemez LLM Güvenlik Denetim Günlüğü</p>
+<p><strong>Rapor Formatı:</strong> IMRAD Araştırma Makalesi Formatı</p>
+<p><strong>Hazırlayanlar:</strong></p>
+<ul>
+<li>Ramazan Yıldırım (2211404067)</li>
+<li>Mehmet Pektaş (2211404059)</li>
+</ul>
+<p><strong>Sınıf:</strong> Bilgisayar Mühendisliği 3. Sınıf</p>
+<p><strong>Ders:</strong> Bilgi Güvenliğine Giriş</p>
+<p><strong>Eğitmen:</strong> Ali Hakan Işık</p>
+<p><strong>Teslim Tarihi:</strong> 6 Haziran 2026</p>
+<p><strong>Kurum:</strong> Burdur Mehmet Akif Ersoy Üniversitesi</p></section>
+<div class="page-break"></div>
+<main><h1>Blokzincir Tabanlı Değiştirilemez LLM Güvenlik Denetim Günlüğü</h1>
+<p>Ramazan Yıldırım¹, Mehmet Pektaş¹</p>
+<p>¹ Burdur Mehmet Akif Ersoy Üniversitesi, Mühendislik-Mimarlık Fakültesi, Bilgisayar Mühendisliği Bölümü, Burdur, Türkiye</p>
+<h2>Özet</h2>
+<p>Bu çalışmada, Büyük Dil Modeli (LLM) tabanlı uygulamalarda üretilen kritik işlem kayıtlarının sonradan değiştirilmesini, silinmesini veya inkar edilmesini zorlaştırmak amacıyla blokzincir tabanlı bir denetim günlüğü sistemi geliştirilmiştir. Önerilen yaklaşımda kullanıcı girdisi, model cevabı ve akıl yürütme özeti gibi hassas alanlar zincire ham metin olarak yazılmamış; bu alanların <code>keccak256</code> ile üretilen kriptografik hash değerleri Solidity tabanlı <code>LLMAuditLog</code> akıllı sözleşmesine kaydedilmiştir. Sistem; OpenZeppelin <code>AccessControl</code> ile rol tabanlı yazma yetkisi, Node.js/Express backend servisi, Ethers.js entegrasyonu, Server-Sent Events tabanlı canlı event akışı ve HTML dashboard bileşenlerinden oluşmaktadır. Hardhat testleri ile yetkisiz yazmanın engellenmesi, tekli ve toplu kayıt ekleme, sayfalı okuma ve hata durumları doğrulanmıştır. Elde edilen bulgular, ham LLM verisini ifşa etmeden bütünlük doğrulaması ve denetlenebilirlik sağlanabileceğini göstermektedir. Çalışma, LLM tabanlı sistemlerde gizlilik, bütünlük ve inkâr edilemezlik gereksinimlerini birlikte ele alan uygulanabilir bir güvenlik denetim altyapısı sunmaktadır.</p>
+<p><strong>Anahtar Kelimeler:</strong> Blokzincir, LLM güvenliği, denetim günlüğü, hash, akıllı sözleşme, Solidity</p>
+<h2>1. Giriş</h2>
+<p>Büyük Dil Modeli tabanlı sistemler müşteri hizmetleri, karar destek, kod analizi, siber güvenlik operasyonları ve kurumsal otomasyon gibi alanlarda giderek daha kritik iş akışlarının parçası haline gelmektedir. Bu sistemlerde yalnızca model cevabının doğruluğu değil, cevabın hangi girdiyle üretildiği, hangi zamanda kayda geçirildiği ve sonradan değiştirilip değiştirilmediği de güvenlik açısından önemlidir.</p>
+<p>Klasik merkezi log sistemleri bu gereksinimi tek başına karşılamakta zorlanır. Log dosyaları sistem yöneticisi, yetkili servis hesabı veya sistemi ele geçiren bir saldırgan tarafından değiştirilebilir. Kayıtlar silinebilir, geriye dönük olarak yeniden üretilebilir veya belirli bir LLM çıktısının gerçekten belirli bir zamanda oluştuğu inkâr edilebilir. Ayrıca ham prompt ve response içeriklerinin merkezi loglarda saklanması, kişisel veri ve hassas kurumsal bilgi sızıntısı riski doğurur.</p>
+<p>Literatürde güvenlik loglarının toplanması, saklanması, analiz edilmesi ve korunması temel bir siber güvenlik gereksinimi olarak ele alınmaktadır. NIST SP 800-92, kurumların etkili log yönetimi süreçleri kurması gerektiğini ve logların olay müdahalesi, denetim ve güvenlik izleme süreçlerinde kritik rol oynadığını belirtir [1]. Bununla birlikte merkezi log yönetimi, log deposuna veya log yöneticisine duyulan güven varsayımını tamamen ortadan kaldırmaz. Bu nedenle kriptografik olarak korunan audit log yaklaşımları, log kayıtlarının sonradan değiştirilmesine karşı ek bütünlük kanıtı üretmek amacıyla önerilmiştir [2].</p>
+<p>Zaman damgalı dijital kayıtlar ve değiştirilemez kayıt zincirleri üzerine yapılan erken çalışmalar, bir verinin belirli bir zamanda var olduğunu ve sonradan değiştirilmediğini kanıtlamaya odaklanmıştır [3]. Ethereum gibi akıllı sözleşme destekli blokzincir altyapıları ise bu fikri programlanabilir ve herkes tarafından doğrulanabilir kayıt mantığıyla genişletir [4]. LLM uygulamaları açısından bakıldığında, OWASP Top 10 for LLM Applications çalışması prompt injection, hassas bilgi ifşası, tedarik zinciri ve model davranışıyla ilişkili risklerin uygulama güvenliği içinde ayrı bir başlık olarak ele alınması gerektiğini vurgular [5]. Bu bağlamda LLM işlem izlerinin denetlenebilir olması, yalnızca klasik log yönetimi değil, aynı zamanda yapay zeka güvenliği açısından da önemlidir.</p>
+<p>Mevcut yaklaşımlar incelendiğinde, merkezi log sistemlerinin operasyonel olarak pratik olduğu; blokzincir tabanlı kayıtların ise değiştirilemezlik ve bağımsız doğrulama açısından güçlü bir kanıt katmanı sunduğu görülmektedir. Ancak LLM sistemlerinde ham prompt ve response verilerinin doğrudan blokzincire yazılması gizlilik ve maliyet açısından uygun değildir. Bu çalışmanın araştırma boşluğu, LLM denetim kayıtlarını ham metin olarak saklamadan, hash tabanlı bütünlük kanıtı ve rol kontrollü yazma modeliyle blokzincire taşıyan uygulanabilir bir prototip geliştirilmesidir.</p>
+<p>Bu çalışmanın temel araştırma sorusu şudur:</p>
+<blockquote>
+<p>LLM işlem kayıtları, ham veriler ifşa edilmeden nasıl değiştirilemez, denetlenebilir ve sonradan doğrulanabilir hale getirilebilir?</p>
+</blockquote>
+<p>Bu soruya verilen yanıt, ham metni zincire yazmak yerine kriptografik kanıtı zincire yazan bir mimari tasarlamaktır. Prompt, response ve reasoning alanları backend tarafında hashlenmiş; akıllı sözleşme yalnızca <code>bytes32</code> tipindeki hash değerlerini, actor adresini ve blok zaman damgasını saklayacak şekilde geliştirilmiştir.</p>
+<p>Çalışmanın özgün katkıları şu şekilde özetlenebilir:</p>
+<ul>
+<li>LLM işlem izleri için gizlilik dostu, hash tabanlı ve append-only bir blokzincir denetim modeli önerilmiştir.</li>
+<li>Akıllı sözleşmede yazma işlemi <code>LOGGER_ROLE</code> ile sınırlandırılmış, okuma işlemleri herkese açık bırakılmıştır.</li>
+<li>Tekli ve toplu kayıt ekleme, sayfalı okuma, event üretimi ve canlı dashboard izleme akışı birlikte uygulanmıştır.</li>
+<li>Yerel geliştirme, Sepolia test ağına dağıtım ve Etherscan doğrulaması için tamamlayıcı scriptler hazırlanmıştır.</li>
+</ul>
+<p>Makalenin devamı şu şekilde düzenlenmiştir: 2. bölümde kullanılan yöntem, veri modeli, sistem mimarisi ve deneysel kurulum açıklanmıştır. 3. bölümde test ve doğrulama bulguları sunulmuştur. 4. bölümde güvenlik etkileri, sınırlılıklar ve geliştirme önerileri tartışılmıştır. 5. bölümde çalışmanın sonucu özetlenmiştir.</p>
+<h2>2. Yöntem</h2>
+<h3>2.1. Çalışma Tasarımı</h3>
+<p>Çalışma, bir kavram kanıtlama ve uygulamalı güvenlik prototipi olarak tasarlanmıştır. Amaç, LLM sistemlerinde oluşan kritik işlem izlerinin blokzincir üzerinde doğrulanabilir bir kanıt halinde saklanabileceğini göstermektir. Bu nedenle deneysel veri seti olarak gerçek kullanıcı verileri kullanılmamış; testlerde sentetik prompt, response ve reasoning örnekleri, demo akışında ise örnek LLM işlem kayıtları tercih edilmiştir.</p>
+<p>Sistemin temel varsayımı şudur: Denetim sırasında ham verinin güvenli bir yerde saklandığı veya olay incelemesi sırasında elde edilebildiği kabul edilir. Blokzincir üzerinde saklanan hash değerleri, bu ham verinin kayıt anındaki içerikle aynı olup olmadığını doğrulamak için kullanılır.</p>
+<h3>2.2. Veri Modeli ve Ön İşleme</h3>
+<p>Denetim kaydı üç temel metinsel alana dayanır:</p>
+<ul>
+<li><code>prompt</code>: Kullanıcı veya sistem tarafından LLM'e verilen girdi.</li>
+<li><code>response</code>: Model tarafından üretilen cevap.</li>
+<li><code>reasoning</code>: Modelin akıl yürütme sürecine ilişkin özet veya denetim amaçlı açıklama.</li>
+</ul>
+<p>Bu alanlar zincire doğrudan yazılmamıştır. Backend tarafında her alan UTF-8 byte dizisine dönüştürülmüş ve <code>keccak256</code> fonksiyonundan geçirilmiştir:</p>
+<pre><code class="language-javascript">function hashText(value) {
+  return ethers.keccak256(ethers.toUtf8Bytes(value));
+}</code></pre>
+<p>Bu işlem sonucunda her metin alanı sabit uzunluklu <code>bytes32</code> hash değerine dönüştürülmüştür. Böylece blokzincirde açık metin yerine kriptografik parmak izi tutulmuştur.</p>
+<p>Akıllı sözleşmede kullanılan kayıt modeli aşağıdaki gibidir:</p>
+<table>
+<thead><tr><th>Alan</th><th>Tip</th><th>Açıklama</th></tr></thead>
+<tbody>
+<tr><td><code>actor</code></td><td><code>address</code></td><td>LLM işlemiyle ilişkilendirilen kullanıcı veya sistem adresi</td></tr>
+<tr><td><code>promptHash</code></td><td><code>bytes32</code></td><td>Prompt metninin hash değeri</td></tr>
+<tr><td><code>responseHash</code></td><td><code>bytes32</code></td><td>Model cevabının hash değeri</td></tr>
+<tr><td><code>reasoningHash</code></td><td><code>bytes32</code></td><td>Reasoning veya reasoning özetinin hash değeri</td></tr>
+<tr><td><code>timestamp</code></td><td><code>uint256</code></td><td>Kaydın blokzincire eklendiği blok zaman damgası</td></tr>
+</tbody></table>
+<h3>2.3. Önerilen Sistem Mimarisi</h3>
+<p>Sistem, LLM uygulaması, hashleme katmanı, backend logger servisi, akıllı sözleşme, event akışı ve dashboard bileşenlerinden oluşmaktadır. Çalışmanın uçtan uca akışı Şekil 1'de gösterilmiştir.</p>
+<figure><img src="sekil-1-calisma-akisi.svg" alt="Şekil 1. Çalışmanın uçtan uca akış diyagramı" /><figcaption>Şekil 1. Çalışmanın uçtan uca akış diyagramı</figcaption></figure>
+<p>Şekil 1'de görüldüğü gibi kullanıcıdan gelen prompt LLM katmanında response ve reasoning özeti ile birlikte denetim girdisine dönüşür. Backend bu alanları hashler ve yetkili logger cüzdanı ile <code>LLMAuditLog</code> sözleşmesine transaction gönderir. Sözleşme kaydı append-only diziye ekler ve <code>AuditRecordAdded</code> eventi üretir. Backend bu eventi Server-Sent Events ile dashboard'a aktarır. Daha sonra eldeki ham veri yeniden hashlenerek zincirdeki hash değerleriyle karşılaştırılabilir.</p>
+<p>Kullanılan framework, model ve teknoloji katmanları Şekil 2'de özetlenmiştir.</p>
+<figure><img src="sekil-2-teknoloji-mimarisi.svg" alt="Şekil 2. Kullanılan framework, model ve katman mimarisi" /><figcaption>Şekil 2. Kullanılan framework, model ve katman mimarisi</figcaption></figure>
+<p>Şekil 2'de sistemin dört ana teknik katmanı gösterilmektedir. Sunum katmanında HTML/CSS/JavaScript dashboard ve SSE canlı event akışı, backend katmanında Node.js, Express ve Ethers.js, blokzincir katmanında Solidity, OpenZeppelin ve Hardhat, ağ/model katmanında ise Sepolia veya local Hardhat ağı ile opsiyonel LM Studio local LLM entegrasyonu yer almaktadır.</p>
+<h3>2.4. Akıllı Sözleşme Tasarımı</h3>
+<p>Akıllı sözleşme <code>contracts/LLMAuditLog.sol</code> dosyasında geliştirilmiştir. Sözleşme Solidity <code>0.8.20</code> kullanır ve OpenZeppelin <code>AccessControl</code> modülünü temel alır. Yazma yetkisi <code>LOGGER_ROLE</code> ile sınırlandırılmıştır:</p>
+<pre><code class="language-solidity">bytes32 public constant LOGGER_ROLE = keccak256(&quot;LOGGER_ROLE&quot;);</code></pre>
+<p>Sözleşme iki ayrı rol mantığına sahiptir:</p>
+<table>
+<thead><tr><th>Rol</th><th>Sorumluluk</th></tr></thead>
+<tbody>
+<tr><td><code>DEFAULT_ADMIN_ROLE</code></td><td>Logger adresi yetkilendirme ve yetki kaldırma</td></tr>
+<tr><td><code>LOGGER_ROLE</code></td><td>Yeni audit kaydı ekleme</td></tr>
+</tbody></table>
+<p>Bu ayrım, en az yetki prensibine uygundur. Deployer adresi yönetim rolünü tutabilirken, günlük kayıt yazma işlemleri ayrı bir backend logger cüzdanı ile yapılabilir.</p>
+<p>Sözleşmede kayıt güncelleme veya silme fonksiyonu bulunmamaktadır. Bu nedenle kayıtlar uygulama mantığı açısından append-only davranır. Tekli kayıt için <code>addAuditRecord</code>, toplu kayıt için <code>addAuditRecordsBatch</code>, okuma için <code>getRecordCount</code>, <code>getRecord</code> ve <code>getRecords</code> fonksiyonları kullanılmıştır.</p>
+<p>Geçersiz girdileri azaltmak için özel hata tipleri tanımlanmıştır:</p>
+<table>
+<thead><tr><th>Hata</th><th>Kullanım Amacı</th></tr></thead>
+<tbody>
+<tr><td><code>ZeroAddress</code></td><td>Sıfır adresli actor veya logger girişini engellemek</td></tr>
+<tr><td><code>EmptyHash</code></td><td>Boş hash değerlerinin kaydedilmesini engellemek</td></tr>
+<tr><td><code>RecordNotFound</code></td><td>Mevcut olmayan kayıt okumasını reddetmek</td></tr>
+<tr><td><code>EmptyBatch</code></td><td>Boş toplu kayıt isteğini reddetmek</td></tr>
+</tbody></table>
+<h3>2.5. Backend ve Dashboard Uygulaması</h3>
+<p>Backend servisi <code>backend/logger-service.js</code> dosyasında Node.js ve Express ile geliştirilmiştir. Servis, JSON API endpointleri sağlar, gelen metinleri hashler, Ethers.js ile akıllı sözleşmeye transaction gönderir ve eventleri dashboard'a aktarır.</p>
+<p>Temel endpointler şunlardır:</p>
+<table>
+<thead><tr><th>Endpoint</th><th>Yöntem</th><th>Amaç</th></tr></thead>
+<tbody>
+<tr><td><code>/health</code></td><td>GET</td><td>Backend, cüzdan, kontrat ve kayıt sayısı durumunu gösterme</td></tr>
+<tr><td><code>/audit-log</code></td><td>POST</td><td>Tekli LLM audit kaydı oluşturma</td></tr>
+<tr><td><code>/audit-log/batch</code></td><td>POST</td><td>Birden fazla audit kaydını tek transaction ile yazma</td></tr>
+<tr><td><code>/lmstudio-audit</code></td><td>POST</td><td>LM Studio üzerinden local LLM cevabı üretip kaydetme</td></tr>
+<tr><td><code>/events/recent</code></td><td>GET</td><td>Son eventleri ve zincir snapshot bilgisini listeleme</td></tr>
+<tr><td><code>/events/stream</code></td><td>GET</td><td>SSE ile canlı event yayını</td></tr>
+</tbody></table>
+<p>Backend, opsiyonel <code>BACKEND_API_KEY</code> değişkeni ile API key kontrolü uygular. Değer tanımlıysa istemcinin <code>x-api-key</code> header'ı göndermesi gerekir. Private key, RPC URL ve kontrat adresi <code>.env</code> dosyasında tutulur; bu değerler raporda paylaşılmamıştır.</p>
+<p>Dashboard <code>backend/public/dashboard.html</code> dosyasında yer alır. Canlı kayıtları, actor ve logger adreslerini, hash değerlerini, zaman damgasını ve transaction hash bilgisini gösterir. Sepolia ağı kullanıldığında transaction hash üzerinden Etherscan doğrulaması yapılabilir.</p>
+<h3>2.6. Deneysel Kurulum</h3>
+<p>Geliştirme ve test ortamında kullanılan temel teknolojiler Tablo 1'de verilmiştir.</p>
+<p>Tablo 1. Projede kullanılan temel teknoloji yığını.</p>
+<table>
+<thead><tr><th>Katman</th><th>Teknoloji</th><th>Kullanım Amacı</th></tr></thead>
+<tbody>
+<tr><td>Akıllı sözleşme</td><td>Solidity 0.8.20</td><td>Audit kayıtlarının zincir üzerinde saklanması</td></tr>
+<tr><td>Yetki kontrolü</td><td>OpenZeppelin AccessControl</td><td>Rol tabanlı yazma yetkisi</td></tr>
+<tr><td>Geliştirme ortamı</td><td>Hardhat</td><td>Derleme, test, local node ve deploy</td></tr>
+<tr><td>Test</td><td>Hardhat + Chai</td><td>Sözleşme davranışlarının doğrulanması</td></tr>
+<tr><td>Blockchain SDK</td><td>Ethers.js v6</td><td>Backend ve scriptlerden kontrat çağrısı</td></tr>
+<tr><td>Backend</td><td>Node.js + Express</td><td>API, hashleme ve transaction gönderimi</td></tr>
+<tr><td>Frontend</td><td>HTML/CSS/JavaScript</td><td>Dashboard ve canlı izleme</td></tr>
+<tr><td>Event akışı</td><td>Server-Sent Events</td><td><code>AuditRecordAdded</code> eventlerinin canlı aktarımı</td></tr>
+<tr><td>Ağ</td><td>Hardhat localhost / Sepolia</td><td>Yerel test ve testnet doğrulaması</td></tr>
+<tr><td>Opsiyonel model</td><td>LM Studio local LLM</td><td>Canlı LLM demo akışı</td></tr>
+</tbody></table>
+<p>Temel çalıştırma komutları aşağıdaki gibidir:</p>
+<pre><code class="language-bash">npm install
+npm run compile
+npm test
+npm run node
+npm run deploy:local
+npm run start:backend</code></pre>
+<p>Sepolia kullanımı için <code>SEPOLIA_RPC_URL</code>, <code>DEPLOYER_PRIVATE_KEY</code>, <code>AUDIT_CONTRACT_ADDRESS</code>, <code>BACKEND_PRIVATE_KEY</code> ve isteğe bağlı <code>ETHERSCAN_API_KEY</code> değişkenleri yapılandırılır.</p>
+<h3>2.7. Değerlendirme Metrikleri</h3>
+<p>Bu çalışma bir sınıflandırma modeli değil, güvenlik denetim altyapısı prototipidir. Bu nedenle başarı değerlendirmesi doğruluk, precision veya recall gibi makine öğrenmesi metrikleriyle değil; fonksiyonel ve güvenlik gereksinimlerinin karşılanmasıyla yapılmıştır.</p>
+<p>Kullanılan değerlendirme ölçütleri şunlardır:</p>
+<ul>
+<li>Yetkisiz adreslerin kayıt yazamaması.</li>
+<li>Yetkili logger adresinin tekli kayıt ekleyebilmesi.</li>
+<li>Toplu kayıt ekleme fonksiyonunun birden fazla kaydı doğru saklaması.</li>
+<li>Kayıt sayısı ve kayıt içeriğinin okunabilmesi.</li>
+<li>Sayfalı okuma fonksiyonunun doğru aralıkta sonuç döndürmesi.</li>
+<li>Boş batch, sıfır adres ve olmayan kayıt gibi hata durumlarının reddedilmesi.</li>
+<li>Ham metnin zincirde saklanmaması ve hash üzerinden bütünlük doğrulaması yapılabilmesi.</li>
+</ul>
+<h2>3. Bulgular</h2>
+<h3>3.1. Akıllı Sözleşme Test Bulguları</h3>
+<p>Hardhat test paketi <code>test/LLMAuditLog.test.js</code> dosyasında yer almaktadır. Testler sözleşmenin temel fonksiyonel ve güvenlik davranışlarını doğrulamaktadır. Test kapsamı Tablo 2'de özetlenmiştir.</p>
+<p>Tablo 2. Akıllı sözleşme test kapsamı.</p>
+<table>
+<thead><tr><th>Test Edilen Davranış</th><th>Beklenen Sonuç</th><th>Durum</th></tr></thead>
+<tbody>
+<tr><td>Constructor ile ilk logger rolü atanması</td><td><code>LOGGER_ROLE</code> doğru adrese verilir</td><td>Başarılı</td></tr>
+<tr><td>Yetkisiz kayıt yazma</td><td>Logger olmayan adres revert alır</td><td>Başarılı</td></tr>
+<tr><td>Yetkili tekli kayıt yazma</td><td>Kayıt eklenir ve event üretilir</td><td>Başarılı</td></tr>
+<tr><td>Toplu kayıt yazma</td><td>Birden fazla kayıt tek transaction içinde eklenir</td><td>Başarılı</td></tr>
+<tr><td>Kayıt sayısı ve tek kayıt okuma</td><td>Saklanan alanlar beklenen hashlerle eşleşir</td><td>Başarılı</td></tr>
+<tr><td>Sayfalı kayıt okuma</td><td><code>offset</code> ve <code>limit</code> doğru uygulanır</td><td>Başarılı</td></tr>
+<tr><td>Hata durumları</td><td><code>RecordNotFound</code>, <code>EmptyBatch</code>, <code>ZeroAddress</code> çalışır</td><td>Başarılı</td></tr>
+</tbody></table>
+<p>Test paketi toplam 6 test senaryosundan oluşmaktadır. Bu senaryolar, Tablo 2'de 7 temel davranış başlığı altında özetlenmiştir; çünkü hata durumları gibi bazı senaryolar birden fazla davranışı birlikte doğrulamaktadır.</p>
+<h3>3.2. Gereksinim Karşılama Bulguları</h3>
+<p>Sistemin proje gereksinimlerini karşılama durumu Tablo 3'te verilmiştir.</p>
+<p>Tablo 3. Gereksinim karşılama matrisi.</p>
+<table>
+<thead><tr><th>Gereksinim</th><th>Projedeki Karşılığı</th><th>Durum</th></tr></thead>
+<tbody>
+<tr><td>LLM prompt kaydı</td><td><code>promptHash</code></td><td>Tamamlandı</td></tr>
+<tr><td>LLM response kaydı</td><td><code>responseHash</code></td><td>Tamamlandı</td></tr>
+<tr><td>Reasoning kaydı</td><td><code>reasoningHash</code></td><td>Tamamlandı</td></tr>
+<tr><td>Ham verinin zincire yazılmaması</td><td>Backend hashleme ve <code>bytes32</code> saklama</td><td>Tamamlandı</td></tr>
+<tr><td>Yetkili yazma</td><td><code>LOGGER_ROLE</code></td><td>Tamamlandı</td></tr>
+<tr><td>Herkese açık okuma</td><td><code>getRecord</code>, <code>getRecords</code></td><td>Tamamlandı</td></tr>
+<tr><td>Event üretimi</td><td><code>AuditRecordAdded</code></td><td>Tamamlandı</td></tr>
+<tr><td>Tekli kayıt</td><td><code>addAuditRecord</code></td><td>Tamamlandı</td></tr>
+<tr><td>Toplu kayıt</td><td><code>addAuditRecordsBatch</code></td><td>Tamamlandı</td></tr>
+<tr><td>Sayfalama</td><td><code>getRecords(offset, limit)</code></td><td>Tamamlandı</td></tr>
+<tr><td>Backend entegrasyonu</td><td>Express + Ethers.js</td><td>Tamamlandı</td></tr>
+<tr><td>Canlı dashboard</td><td>SSE + HTML dashboard</td><td>Tamamlandı</td></tr>
+<tr><td>Yerel geliştirme</td><td>Hardhat localhost</td><td>Tamamlandı</td></tr>
+<tr><td>Testnet desteği</td><td>Sepolia deploy scriptleri</td><td>Tamamlandı</td></tr>
+</tbody></table>
+<h3>3.3. Güvenlik Gereksinimi Gözlemleri</h3>
+<p>Uygulama ve testler sonucunda güvenlik gereksinimlerine ilişkin gözlenen davranışlar Tablo 4'te verilmiştir.</p>
+<p>Tablo 4. Güvenlik gereksinimlerine ilişkin nesnel gözlemler.</p>
+<table>
+<thead><tr><th>Gereksinim</th><th>Gözlenen Sistem Davranışı</th></tr></thead>
+<tbody>
+<tr><td>Ham LLM verisinin zincirde tutulmaması</td><td>Sözleşme veri modelinde <code>prompt</code>, <code>response</code> veya <code>reasoning</code> açık metin alanı bulunmamaktadır; yalnızca <code>bytes32</code> hash alanları vardır.</td></tr>
+<tr><td>Yetkisiz yazmanın engellenmesi</td><td><code>LOGGER_ROLE</code> sahibi olmayan adresle yapılan kayıt yazma denemesi testlerde revert ile sonuçlanmıştır.</td></tr>
+<tr><td>Kayıt bütünlüğünün doğrulanabilir olması</td><td>Aynı metinden üretilen hash değeri zincirdeki hash ile karşılaştırılabilecek biçimde saklanmıştır.</td></tr>
+<tr><td>Zaman ve yazan adres bilgisinin izlenmesi</td><td>Her kayıtta <code>timestamp</code> alanı, eventte ise <code>logger</code> adresi üretilmiştir.</td></tr>
+<tr><td>Kayıtların okunabilir olması</td><td><code>getRecord</code>, <code>getRecords</code> ve <code>getRecordCount</code> fonksiyonları testlerde beklenen sonuçları döndürmüştür.</td></tr>
+</tbody></table>
+<h3>3.4. Demo ve Doğrulama Bulguları</h3>
+<p>Demo akışı şu işlemleri desteklemektedir:</p>
+<ul>
+<li>Backend servisi <code>npm run start:backend</code> komutu ile başlatılır.</li>
+<li>Dashboard <code>http://localhost:3001/dashboard.html</code> adresinden izlenir.</li>
+<li><code>/audit-log</code> endpointine prompt, response ve reasoning gönderilir.</li>
+<li>Backend hashleri üretir ve akıllı sözleşmeye transaction gönderir.</li>
+<li>Dashboard, <code>AuditRecordAdded</code> eventini canlı olarak gösterir.</li>
+<li>Transaction hash, Sepolia kullanıldığında Etherscan üzerinde görüntülenebilir.</li>
+</ul>
+<p>Bütünlük doğrulama örneğinde aynı prompt metni tekrar hashlendiğinde zincirdeki <code>promptHash</code> ile aynı değer elde edilmiştir. Prompt metni değiştirildiğinde ise hesaplanan hash değerinin zincirdeki değerle eşleşmediği gözlenmiştir.</p>
+<h2>4. Tartışma</h2>
+<h3>4.1. Ana Bulguların Yorumlanması</h3>
+<p>Bulgular, LLM denetim kayıtlarının ham içerik ifşa edilmeden blokzincir üzerinde doğrulanabilir hale getirilebileceğini göstermektedir. Akıllı sözleşmenin append-only tasarımı, kayıtların uygulama seviyesinde güncellenmesini veya silinmesini engeller. Blokzincir transaction yapısı ise kayıtların tarihsel olarak izlenmesini sağlar.</p>
+<p>Hash tabanlı yaklaşım, gizlilik ve denetlenebilirlik arasında dengeli bir çözüm sunar. Ham prompt ve response metinleri zincire yazılmadığı için açık ağ üzerinde hassas veri sızıntısı riski azaltılır. Buna karşılık hash değerleri, ham verinin kayıt anındaki içerikle aynı olup olmadığını kanıtlamak için yeterli bir bütünlük kontrolü sağlar.</p>
+<h3>4.2. Mevcut Yaklaşımlarla İlişki</h3>
+<p>Merkezi log sistemleri hızlı, ucuz ve yönetimi kolaydır; ancak güvenilen merkezi otoritenin kayıtları değiştirmediği varsayımına dayanır. Bu proje, kritik LLM olayları için merkezi logların yanında bağımsız bir kriptografik kanıt katmanı kullanılabileceğini göstermektedir. Önerilen sistem, merkezi log deposunun yerini tamamen almak yerine, kritik olayların değiştirilemez kanıtını üretmeyi hedefler.</p>
+<p>Akıllı sözleşme tarafında OpenZeppelin <code>AccessControl</code> kullanılması, özel bir rol sistemi yazma ihtiyacını azaltmış ve standart bir yetkilendirme modeli sağlamıştır. Hardhat testleri ise sözleşmenin temel davranışlarının tekrarlanabilir şekilde doğrulanmasına olanak vermiştir.</p>
+<h3>4.3. Sınırlılıklar</h3>
+<p>Çalışmanın bazı sınırlılıkları bulunmaktadır:</p>
+<ul>
+<li>Sepolia bir test ağıdır; ekonomik güvenlik seviyesi Ethereum mainnet ile aynı değildir.</li>
+<li>Hash değeri ham veriyi geri döndürmez. Denetim yapılabilmesi için orijinal prompt, response ve reasoning verilerinin güvenli bir yerde saklanması gerekir.</li>
+<li>Çok kısa veya tahmin edilebilir metinlerde sözlük tabanlı tahmin saldırıları teorik olarak mümkündür.</li>
+<li>Backend private key ele geçirilirse saldırgan yetkili logger gibi yeni kayıt yazabilir.</li>
+<li>RPC sağlayıcısı kesintiye uğrarsa yeni kayıt yazma ve event dinleme geçici olarak aksayabilir.</li>
+<li>Bu sürümde hashlere salt veya HMAC uygulanmamıştır; gizlilik düzeyi tahmin edilebilir girdiler için sınırlı olabilir.</li>
+</ul>
+<h3>4.4. Pratik ve Teorik Katkılar</h3>
+<p>Pratik açıdan sistem, LLM tabanlı uygulamalara düşük temaslı bir denetim kanıtı katmanı ekler. Uygulama geliştiricisi yalnızca prompt, response ve reasoning özetini backend endpointine göndererek zincir üzerinde doğrulanabilir bir kayıt oluşturabilir.</p>
+<p>Teorik açıdan çalışma, LLM güvenliğinde üç özelliğin birlikte ele alınabileceğini göstermektedir: gizlilik, bütünlük ve inkâr edilemezlik. Ham veriyi zincire yazmamak gizliliği desteklerken, hashin zincirde tutulması bütünlük kanıtı üretir; transaction ve event kayıtları ise zaman ve logger bilgisi üzerinden denetlenebilirlik sağlar.</p>
+<h3>4.5. Gelecek Çalışmalar</h3>
+<p>Gelecek sürümlerde aşağıdaki geliştirmeler önerilmektedir:</p>
+<ul>
+<li>Hashleme sürecine salt veya HMAC eklenerek kısa metinlerde tahmin riski azaltılabilir.</li>
+<li>Backend private key yönetimi için donanımsal cüzdan, KMS veya imzalama servisi kullanılabilir.</li>
+<li>Event kayıplarına karşı kalıcı bir off-chain indeksleme servisi eklenebilir.</li>
+<li>Dashboard'a hash doğrulama aracı eklenerek kullanıcıların eldeki metni zincirdeki hash ile karşılaştırması kolaylaştırılabilir.</li>
+<li>Gas maliyeti ve batch boyutu farklı senaryolarda ölçülerek performans analizi genişletilebilir.</li>
+<li>Mainnet veya kurumsal izinli blokzincir ortamları için dağıtım seçenekleri değerlendirilebilir.</li>
+</ul>
+<h2>5. Sonuç</h2>
+<p>Bu çalışmada, LLM tabanlı sistemlerde üretilen kritik işlem kayıtlarının değiştirilemez ve denetlenebilir hale getirilmesi için blokzincir tabanlı bir güvenlik denetim günlüğü geliştirilmiştir. Sistem, ham prompt, response ve reasoning verilerini zincire yazmadan yalnızca <code>keccak256</code> hash değerlerini saklayarak gizlilik dostu bir kanıt modeli sunmaktadır. Solidity akıllı sözleşmesi, OpenZeppelin rol kontrolü, Express/Ethers.js backend servisi, SSE event akışı ve dashboard bileşenleri birlikte çalışacak şekilde uygulanmıştır. Hardhat testleri, yetkilendirme, kayıt ekleme, okuma, sayfalama ve hata durumlarının beklendiği gibi çalıştığını göstermiştir. Sonuç olarak proje, LLM güvenliği bağlamında bütünlük, denetlenebilirlik ve inkâr edilemezlik gereksinimlerini karşılayan uygulanabilir bir kavram kanıtı ortaya koymaktadır.</p>
+<h2>Teşekkür</h2>
+<p>Bu çalışma, Burdur Mehmet Akif Ersoy Üniversitesi Bilgisayar Mühendisliği Bölümü Bilgi Güvenliğine Giriş dersi kapsamında hazırlanmıştır. Proje konusunun değerlendirilmesi ve final raporu formatı yönlendirmesi için ders yürütücüsü Ali Hakan Işık'a teşekkür ederiz.</p>
+<h2>Çıkar Çatışması Beyanı</h2>
+<p>Yazarlar bu çalışma kapsamında herhangi bir çıkar çatışması bulunmadığını beyan eder.</p>
+<h2>Yazar Katkıları</h2>
+<p>Ramazan Yıldırım ve Mehmet Pektaş; fikir geliştirme, akıllı sözleşme tasarımı, backend entegrasyonu, test, dokümantasyon ve raporlama aşamalarına birlikte katkı sağlamıştır.</p>
+<h2>Veri ve Kod Erişilebilirliği</h2>
+<p>Çalışmada kullanılan kaynak kodlar proje dizininde yer almaktadır. Gerçek kullanıcı verisi kullanılmamış, test ve demo süreçlerinde sentetik denetim kayıtları tercih edilmiştir. Private key, API key ve RPC URL gibi gizli bilgiler rapora dahil edilmemiştir.</p>
+<h2>Kaynaklar</h2>
+<p>[1] K. Kent and M. Souppaya, &quot;Guide to Computer Security Log Management,&quot; NIST Special Publication 800-92, National Institute of Standards and Technology, 2006. DOI: 10.6028/NIST.SP.800-92. https://csrc.nist.gov/pubs/sp/800/92/final</p>
+<p>[2] B. Schneier and J. Kelsey, &quot;Secure Audit Logs to Support Computer Forensics,&quot; ACM Transactions on Information and System Security, vol. 2, no. 2, pp. 159-176, 1999.</p>
+<p>[3] S. Haber and W. S. Stornetta, &quot;How to Time-Stamp a Digital Document,&quot; Journal of Cryptology, vol. 3, no. 2, pp. 99-111, 1991. DOI: 10.1007/BF00196791.</p>
+<p>[4] G. Wood, &quot;Ethereum: A Secure Decentralised Generalised Transaction Ledger,&quot; Ethereum Yellow Paper. https://ethereum.github.io/yellowpaper/paper.pdf</p>
+<p>[5] OWASP, &quot;OWASP Top 10 for LLM Applications 2025,&quot; OWASP Foundation, 2024. https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/</p>
+<p>[6] Solidity Documentation, &quot;Solidity Programming Language Documentation,&quot; Ethereum Foundation. https://docs.soliditylang.org/</p>
+<p>[7] OpenZeppelin, &quot;AccessControl,&quot; OpenZeppelin Contracts Documentation. https://docs.openzeppelin.com/contracts/5.x/api/access</p>
+<p>[8] Hardhat, &quot;Ethereum Development Environment for Professionals,&quot; Hardhat Documentation. https://hardhat.org/docs</p>
+<p>[9] Ethers.js, &quot;Ethers.js v6 Documentation.&quot; https://docs.ethers.org/v6/</p>
+<p>[10] Proje kaynak kodu: <code>contracts/LLMAuditLog.sol</code>.</p>
+<p>[11] Proje backend uygulaması: <code>backend/logger-service.js</code>.</p>
+<p>[12] Proje test dosyası: <code>test/LLMAuditLog.test.js</code>.</p>
+<h2>Ekler</h2>
+<h3>Ek A. Önemli Proje Dosyaları</h3>
+<table>
+<thead><tr><th>Dosya</th><th>Açıklama</th></tr></thead>
+<tbody>
+<tr><td><code>contracts/LLMAuditLog.sol</code></td><td>Ana akıllı sözleşme</td></tr>
+<tr><td><code>backend/logger-service.js</code></td><td>Backend API, hashleme, transaction ve event servisi</td></tr>
+<tr><td><code>backend/public/dashboard.html</code></td><td>Canlı demo dashboard'u</td></tr>
+<tr><td><code>test/LLMAuditLog.test.js</code></td><td>Hardhat test paketi</td></tr>
+<tr><td><code>scripts/deploy.js</code></td><td>Deploy scripti</td></tr>
+<tr><td><code>scripts/check-sepolia.js</code></td><td>Sepolia ağ kontrol scripti</td></tr>
+<tr><td><code>scripts/rotate-logger-role.js</code></td><td>Logger rol devri scripti</td></tr>
+<tr><td><code>scripts/seed-demo-data.js</code></td><td>Demo veri üretim scripti</td></tr>
+<tr><td><code>docs/sekil-1-calisma-akisi.svg</code></td><td>Çalışma akış diyagramı</td></tr>
+<tr><td><code>docs/sekil-2-teknoloji-mimarisi.svg</code></td><td>Framework/model mimari şekli</td></tr>
+</tbody></table>
+<h3>Ek B. Örnek API İsteği</h3>
+<pre><code class="language-bash">curl -X POST http://localhost:3001/audit-log \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;x-api-key: YOUR_BACKEND_API_KEY&quot; \
+  -d '{
+    &quot;actor&quot;: &quot;0x1111111111111111111111111111111111111111&quot;,
+    &quot;prompt&quot;: &quot;Prompt injection nedir?&quot;,
+    &quot;response&quot;: &quot;Prompt injection, modele verilen girdinin sistem talimatlarını manipüle etmesidir.&quot;,
+    &quot;reasoning&quot;: &quot;Güvenlik odaklı kısa açıklama üretildi.&quot;
+  }'</code></pre>
+<h3>Ek C. Bütünlük Doğrulama Örneği</h3>
+<pre><code class="language-javascript">const { ethers } = require(&quot;ethers&quot;);
+
+function hashText(value) {
+  return ethers.keccak256(ethers.toUtf8Bytes(value));
+}
+
+const calculatedHash = hashText(&quot;Prompt injection nedir?&quot;);
+console.log(calculatedHash);</code></pre>
+<p>Hesaplanan hash değeri zincirdeki <code>promptHash</code> ile aynıysa, eldeki prompt metninin kayıt anındaki veriyle aynı olduğu kabul edilir. Değer farklıysa veri değişmiş veya farklı bir metin kullanılmış demektir.</p></main>
+</body>
+</html>

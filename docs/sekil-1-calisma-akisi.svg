@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">Çalışma akış diyagramı</title>
+  <desc id="desc">LLM isteğinin hashlenerek blokzincire kaydedilmesi ve dashboard üzerinden izlenmesi.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; rx: 8; }
+      .box-accent { fill: #ecfeff; stroke: #0891b2; stroke-width: 2; rx: 8; }
+      .box-chain { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 8; }
+      .box-warn { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; rx: 8; }
+      .label { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 13px Arial, sans-serif; fill: #475569; }
+      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #64748b; stroke-width: 2; stroke-dasharray: 7 6; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1120" height="560"/>
+
+  <rect class="box" x="40" y="70" width="150" height="86"/>
+  <text class="label" x="66" y="102">Kullanıcı</text>
+  <text class="small" x="62" y="128">Prompt üretir</text>
+
+  <rect class="box" x="245" y="70" width="160" height="86"/>
+  <text class="label" x="279" y="102">LLM Katmanı</text>
+  <text class="small" x="269" y="128">Response ve</text>
+  <text class="small" x="274" y="146">reasoning özeti</text>
+
+  <rect class="box-accent" x="460" y="70" width="170" height="86"/>
+  <text class="label" x="497" y="102">Hashleme</text>
+  <text class="small" x="482" y="128">keccak256 ile</text>
+  <text class="small" x="487" y="146">bytes32 kanıt</text>
+
+  <rect class="box-accent" x="685" y="70" width="170" height="86"/>
+  <text class="label" x="715" y="102">Backend API</text>
+  <text class="small" x="718" y="128">Express + Ethers</text>
+  <text class="small" x="713" y="146">logger cüzdanı</text>
+
+  <rect class="box-chain" x="910" y="70" width="170" height="86"/>
+  <text class="label" x="934" y="102">Akıllı Sözleşme</text>
+  <text class="small" x="936" y="128">LLMAuditLog</text>
+  <text class="small" x="936" y="146">append-only kayıt</text>
+
+  <path class="arrow" d="M190 113 H245"/>
+  <path class="arrow" d="M405 113 H460"/>
+  <path class="arrow" d="M630 113 H685"/>
+  <path class="arrow" d="M855 113 H910"/>
+
+  <rect class="box-chain" x="910" y="235" width="170" height="86"/>
+  <text class="label" x="940" y="267">Event Yayını</text>
+  <text class="small" x="932" y="293">AuditRecordAdded</text>
+
+  <rect class="box" x="685" y="235" width="170" height="86"/>
+  <text class="label" x="732" y="267">SSE Akışı</text>
+  <text class="small" x="714" y="293">/events/stream</text>
+
+  <rect class="box" x="460" y="235" width="170" height="86"/>
+  <text class="label" x="499" y="267">Dashboard</text>
+  <text class="small" x="486" y="293">Canlı kayıt ve tx</text>
+
+  <path class="arrow" d="M995 156 V235"/>
+  <path class="arrow" d="M910 278 H855"/>
+  <path class="arrow" d="M685 278 H630"/>
+
+  <rect class="box-warn" x="245" y="365" width="610" height="96"/>
+  <text class="label" x="461" y="398">Bütünlük Doğrulama</text>
+  <text class="small" x="285" y="426">Eldeki prompt/response/reasoning tekrar hashlenir ve zincirdeki hashlerle karşılaştırılır.</text>
+  <text class="small" x="363" y="446">Eşleşme varsa veri kayıt anındaki içerikle aynı kabul edilir.</text>
+
+  <path class="dash" d="M545 321 V365"/>
+  <path class="dash" d="M995 321 C995 380 910 413 855 413"/>
+</svg>

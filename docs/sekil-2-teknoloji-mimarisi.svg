@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+  <title id="title">Kullanılan framework, model ve katman mimarisi</title>
+  <desc id="desc">Projede kullanılan frontend, backend, akıllı sözleşme, blokzincir ağı ve opsiyonel LLM model bileşenleri.</desc>
+  <defs>
+    <marker id="arrow2" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .lane { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 8; }
+      .front { fill: #eef2ff; stroke: #4f46e5; stroke-width: 2; rx: 8; }
+      .back { fill: #ecfeff; stroke: #0891b2; stroke-width: 2; rx: 8; }
+      .chain { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 8; }
+      .model { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; rx: 8; }
+      .lane-title { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 700 15px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 13px Arial, sans-serif; fill: #475569; }
+      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow2); }
+      .dash { stroke: #64748b; stroke-width: 2; stroke-dasharray: 7 6; fill: none; marker-end: url(#arrow2); }
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="620"/>
+
+  <rect class="lane" x="40" y="55" width="1040" height="100"/>
+  <text class="lane-title" x="65" y="86">Sunum ve İzleme Katmanı</text>
+  <rect class="front" x="300" y="78" width="210" height="54"/>
+  <text class="label" x="337" y="101">Dashboard</text>
+  <text class="small" x="326" y="120">HTML / CSS / JavaScript</text>
+  <rect class="front" x="565" y="78" width="210" height="54"/>
+  <text class="label" x="606" y="101">Canlı Event</text>
+  <text class="small" x="614" y="120">Server-Sent Events</text>
+
+  <rect class="lane" x="40" y="185" width="1040" height="120"/>
+  <text class="lane-title" x="65" y="217">Backend ve Entegrasyon Katmanı</text>
+  <rect class="back" x="220" y="230" width="190" height="54"/>
+  <text class="label" x="262" y="253">Node.js</text>
+  <text class="small" x="258" y="272">Runtime ortamı</text>
+  <rect class="back" x="465" y="230" width="190" height="54"/>
+  <text class="label" x="512" y="253">Express</text>
+  <text class="small" x="493" y="272">REST API endpointleri</text>
+  <rect class="back" x="710" y="230" width="190" height="54"/>
+  <text class="label" x="756" y="253">Ethers.js v6</text>
+  <text class="small" x="744" y="272">RPC ve kontrat çağrısı</text>
+
+  <rect class="lane" x="40" y="335" width="1040" height="120"/>
+  <text class="lane-title" x="65" y="367">Blokzincir ve Akıllı Sözleşme Katmanı</text>
+  <rect class="chain" x="180" y="380" width="205" height="54"/>
+  <text class="label" x="235" y="403">Solidity 0.8.20</text>
+  <text class="small" x="218" y="422">LLMAuditLog sözleşmesi</text>
+  <rect class="chain" x="435" y="380" width="205" height="54"/>
+  <text class="label" x="480" y="403">OpenZeppelin</text>
+  <text class="small" x="476" y="422">AccessControl rolleri</text>
+  <rect class="chain" x="690" y="380" width="205" height="54"/>
+  <text class="label" x="748" y="403">Hardhat</text>
+  <text class="small" x="728" y="422">Compile / test / deploy</text>
+
+  <rect class="lane" x="40" y="485" width="1040" height="70"/>
+  <text class="lane-title" x="65" y="528">Ağ ve Model Bileşenleri</text>
+  <rect class="model" x="300" y="498" width="210" height="42"/>
+  <text class="label" x="339" y="523">Sepolia / Localhost</text>
+  <rect class="model" x="565" y="498" width="210" height="42"/>
+  <text class="label" x="605" y="523">LM Studio Local LLM</text>
+
+  <path class="arrow" d="M670 132 V230"/>
+  <path class="arrow" d="M805 284 V380"/>
+  <path class="arrow" d="M537 434 V498"/>
+  <path class="dash" d="M565 519 C505 488 430 330 560 284"/>
+</svg>
